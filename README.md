@@ -1,2 +1,2 @@
-# contentful-sidebar-tag-extension
+# Contentful Sidebar Tag Extension
 Contenful sidebar UI extension for Tag

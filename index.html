@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Core extensions CSS from Contentful. -->
+    <link rel="stylesheet" href="https://unpkg.com/contentful-ui-extensions-sdk@3/dist/cf-extension.css">
+    <!-- Styles for added / removed text -->
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .tag-item {
+            color: black;
+            border-radius: 5px;
+            background-color: #e7ebee;
+            margin-bottom: 15px;
+            display: block;
+            padding: 7px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.06rem;
+            flex: 0 0 auto;
+            margin-right: 15px;
+        }
+
+        .website_GLOBAL {
+            background-color: #e7ebee;
+            color: black;
+        }
+
+        .website_IT {
+            color: black;
+            background-color: #e7ebee;
+        }
+
+        .website_AT {
+            color: black;
+            background-color: #e7ebee;
+        }
+
+        .tag-container {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Contenful UI Extensions SDK API -->
+    <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+
+    <!-- TAG UI Extension -->
+    <script>
+
+        function getFlag(tag_id) {
+
+            switch (tag_id) {
+                case 'website_AT':
+                    return '🇦🇹'
+                    break;
+                case 'website_IT':
+                    return '🇮🇹'
+                    break;
+                case 'website_GLOBAL':
+                    return '🌍'
+                    break;
+
+            }
+        }
+
+        function tagVisibility(api) {
+            //api.window.updateHeight(50);
+            api.window.startAutoResizer()
+            const tags = api.entry.getMetadata()
+            const body = document.querySelector("body");
+            body.innerHTML += `<div class='tag-container'></div>`
+            const innerDiv = document.querySelector(".tag-container")
+            tags.tags.forEach(tag => innerDiv.innerHTML += `<span class='tag-item ${tag.sys.id}'>${tag.sys.id.replace('website_', '')} ${getFlag(tag.sys.id)}</span>`);
+        }
+
+        window.contentfulExtension.init(tagVisibility);
+    </script>
+
+</body>
+
+</html>
